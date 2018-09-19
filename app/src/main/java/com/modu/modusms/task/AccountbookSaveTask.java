@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class AccountbookSaveTask extends AsyncTask<Map<String, String>, Integer, String> {
 
-    public static String ip = "222.106.22.118"; // 자신의 IP주소를 쓰시면 됩니다.
+    public static String ip = "121.138.83.18"; // 자신의 IP주소를 쓰시면 됩니다.
 
     @Override
     protected String doInBackground(Map<String, String>... maps) { // 내가 전송하고 싶은 파라미터
@@ -15,7 +15,7 @@ public class AccountbookSaveTask extends AsyncTask<Map<String, String>, Integer,
         String groupNo = String.valueOf(maps[0].get("groupNo"));
         System.out.println("save두인 들어옴: "+groupNo);
         HttpClient.Builder http = new HttpClient.Builder
-                ("POST", "http://" + ip + ":8088/Modu/accountbook/"+groupNo+"/saveaccountbook"); //포트번호,서블릿주소
+                ("POST", "http://" + ip + ":8088/Modu/accountbook/"+groupNo+"/saveAccountbookForAndroid"); //포트번호,서블릿주소
         // Parameter 를 전송한다.
         http.addAllParameters(maps[0]);
 

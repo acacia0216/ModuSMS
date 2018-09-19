@@ -12,6 +12,8 @@ public class AccountbookVo {
     private int tagNo;
     private String tagName;
 
+    private int type;
+
     public AccountbookVo() {
 
     }
@@ -41,6 +43,14 @@ public class AccountbookVo {
         this.groupNo = groupNo;
         this.tagNo = tagNo;
         this.tagName = tagName;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getAccountbookno() {
@@ -125,10 +135,18 @@ public class AccountbookVo {
 
     @Override
     public String toString() {
-        return "AccountbookVo [accountbookno=" + accountbookno + ", accountbookRegDate=" + accountbookRegDate
-                + ", accountbookUsage=" + accountbookUsage + ", accountbookSpend=" + accountbookSpend
-                + ", accountbookIncome=" + accountbookIncome + ", categoryNo=" + categoryNo + ", categoryName="
-                + categoryName + ", groupNo=" + groupNo + ", tagNo=" + tagNo + ", tagName=" + tagName + "]";
+        return "AccountbookVo{" +
+                "accountbookno=" + accountbookno +
+                ", accountbookRegDate='" + accountbookRegDate + '\'' +
+                ", accountbookUsage='" + accountbookUsage + '\'' +
+                ", accountbookSpend=" + accountbookSpend +
+                ", accountbookIncome=" + accountbookIncome +
+                ", categoryNo=" + categoryNo +
+                ", categoryName='" + categoryName + '\'' +
+                ", groupNo=" + groupNo +
+                ", tagNo=" + tagNo +
+                ", tagName='" + tagName + '\'' +
+                ", type=" + type +
+                '}'+"\n";
     }
-
 }

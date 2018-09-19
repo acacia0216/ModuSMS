@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 
 public class ImageLoader {
 
-    private final String serverUrl = "http://222.106.22.118:8088/Modu/upload/";
+    private final String serverUrl = "http://121.138.83.18:8088/Modu/upload/";
 
     public ImageLoader() {
 

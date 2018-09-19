@@ -128,7 +128,7 @@ public class HttpClient {
             } catch (IOException e) {}
         }
 
-        System.out.println("result가 여기로 들어오나요"+result);
+//        System.out.println("result가 여기로 들어오나요"+result);
         return result;
     }
 

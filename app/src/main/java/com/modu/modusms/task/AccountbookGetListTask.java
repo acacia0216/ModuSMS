@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class AccountbookGetListTask extends AsyncTask<Map<String, String>, Integer, String> {
 
-    public static String ip = "222.106.22.118"; // 자신의 IP주소를 쓰시면 됩니다.
+    public static String ip = "121.138.83.18"; // 자신의 IP주소를 쓰시면 됩니다.
 
     @Override
     protected String doInBackground(Map<String, String>... maps) { // 내가 전송하고 싶은 파라미터

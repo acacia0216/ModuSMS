@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -82,17 +83,41 @@ public class AccountbookActivity extends AppCompatActivity {
             tmpList.add(tmpCate);
             tmpList.addAll(categoryList);
             categoryList = tmpList;
-
             accountList = data.getAccountList();
-            System.out.println("data : " + data);
-            System.out.println("categoryList : " + categoryList);
+            for(AccountbookVo forCateName:accountList){
+                String cateName = "";
+                for (AccountbookCategoryVo tmpCateName : categoryList){
+                    if (forCateName.getCategoryNo() == tmpCateName.getCategoryNo()){
+                        cateName = tmpCateName.getCategoryName();
+                    }
+                }
+                forCateName.setCategoryName(cateName);
+            }
+            System.out.println("데이터 확인 : "+accountList.toString());
+            System.out.println("데이터 확인 : "+ accountList.size()+"개의 리스트");
+            for (int i=0; i<accountList.size(); i++){
+                String tmpStr = "";
+                if (i>0){
+                    if (accountList.get(i-1).getAccountbookRegDate().equals(accountList.get(i).getAccountbookRegDate())){
+                        accountList.get(i).setType(1);
+                    }else{
+                        accountList.get(i).setType(0);
+                    }
+                }else {
+                    accountList.get(i).setType(0);
+                }
+            }
+            System.out.println("끝난 후 데이터 확인 : "+accountList.toString());
+
+//            System.out.println("data : " + data);
+//            System.out.println("categoryList : " + categoryList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        ListView listView = findViewById(R.id.listView);
+        final ListView listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,7 +140,7 @@ public class AccountbookActivity extends AppCompatActivity {
 //        ListView listView = (ListView) findViewById(R.id.listView);
         LinearLayout.LayoutParams viewWeight = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         listView.setLayoutParams(viewWeight);
-        listViewAdapter = new ListViewAdapter(accountList, categoryList);
+        listViewAdapter = new ListViewAdapter(this,accountList, categoryList);
         listView.setAdapter(listViewAdapter);
 
 //        달력
@@ -161,7 +186,7 @@ public class AccountbookActivity extends AppCompatActivity {
                 params.put("usage", usage);
                 params.put("spend", price);
                 params.put("category", String.valueOf(categoryNo));
-                params.put("groupNo", "2");
+                params.put("groupNo", groupNo);
                 params.put("date", y + "년 " + m + "월 " + d + "일");
                 params.put("spendFlag", "spend");
 
@@ -184,7 +209,25 @@ public class AccountbookActivity extends AppCompatActivity {
             }
         });
 
+        final Button refresh = findViewById(R.id.btn_refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRestart();
+            }
+        });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent = new Intent(this,AccountbookActivity.class);
+        intent.putExtra("groupNo",groupNo);
+        intent.putExtra("userNo",userNo);
+        startActivity(intent);
+        finish();
+    }
+
     private void DialogDatePicker() {
         Calendar c = Calendar.getInstance();
         int cyear = c.get(Calendar.YEAR);
